@@ -1,0 +1,9 @@
+name: client_test
+
+environment:
+  sdk: '^3.5.0'
+
+dependencies:
+  web_socket_channel: ^3.0.1
+  dio: ^4.0.0
+  async: ^2.12.0
