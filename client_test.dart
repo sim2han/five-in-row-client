@@ -20,6 +20,10 @@ Future main() async {
   Cli();
 }
 
+String name = "aaaa";
+bool nocli = false;
+int count = 0;
+
 Future Cli() async {
   WebSocketChannel channel;
 
@@ -29,22 +33,23 @@ Future Cli() async {
     if (str == "exit") {
       break;
     }
-    if (str == "root") {
-      final response = await SimpleHttpRequest('http://127.0.0.1:3000/');
-      print(response);
-    } else if (str == "state") {
-      final response = await SimpleHttpRequest('http://127.0.0.1:3000/state');
-      print(response);
-    } else if (str == "bogoconnect") {
-      final response = await SimpleHttpRequest('http://127.0.0.1:3000/connect');
-      print(response);
-    } else if (str == "connect") {
+
+    if (str == "connect") {
       channel =
           WebSocketChannel.connect(Uri.parse('ws://127.0.0.1:3000/connect'));
-      channel.sink.add("hello");
       await WebSocketCli(await channel);
+    } else if (str == "name") {
+      name = "BBBB";
+    } else if (str == "nocli") {
+      nocli = true;
     } else {
-      print('unkown command $str');
+      try {
+        final response =
+            await SimpleHttpRequest('http://127.0.0.1:3000/' + str);
+        print('$response');
+      } catch (e) {
+        print('error: $e');
+      }
     }
   }
 }
@@ -55,6 +60,7 @@ Future<String> SimpleHttpRequest(String url) async {
 }
 
 Future WebSocketCli(WebSocketChannel channel) async {
+  // callback
   channel.stream.listen((message) {
     print('received: $message');
   }, onDone: () {
@@ -63,15 +69,30 @@ Future WebSocketCli(WebSocketChannel channel) async {
     print('Error: $error');
   });
 
-  while (true) {
+  channel.sink.add("5555");
+  channel.sink.add("6666");
+  channel.sink.add("7777");
+
+  while (nocli) {
+    await Future.delayed(Duration(seconds: 5));
+    channel.sink.add(name + count.toString());
+    count++;
+  }
+
+  /*while (true) {
     String? str = await readLine();
 
     if (str == 'exit') {
       break;
+    } else if (str == '') {
+      continue;
     } else {
       channel.sink.add(str);
     }
-  }
+  }*/
+
+  // close socket
+  //channel.sink.close();
 }
 
 Future SomeAsync() async {
