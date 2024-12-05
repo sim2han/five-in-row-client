@@ -6,7 +6,7 @@ class PreviousGamesWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 443,
+          width: double.infinity,
           height: 398,
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
           clipBehavior: Clip.antiAlias,

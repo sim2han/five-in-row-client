@@ -6,7 +6,7 @@ class RatingWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 443,
+          width: double.infinity,
           height: 151,
           decoration: BoxDecoration(color: Color(0xFFFEF7FF)),
           child: Column(
@@ -49,6 +49,7 @@ class RatingWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Container(
+                        alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,

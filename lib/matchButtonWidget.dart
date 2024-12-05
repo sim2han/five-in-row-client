@@ -1,3 +1,7 @@
+import 'package:fir_client/constants.dart';
+import 'package:fir_client/engine.dart';
+import 'package:fir_client/gamePage.dart';
+import 'package:fir_client/waitingPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -7,28 +11,38 @@ class MatchButtonWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 96,
+          width: 120,
           height: 120,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                  width: 96,
-                  height: 96,
-                  padding: const EdgeInsets.all(20),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFEADDFF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: SvgPicture.asset(
-                      'assets/icons/arrow_forward_24dp_000000_FILL1_wght200_GRAD0_opsz24.svg',
-                      fit: BoxFit.fill)),
-              SizedBox(
+                  alignment: Alignment.center,
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: MyColor.buttonColor),
+                  child: IconButton(
+                      iconSize: 80,
+                      alignment: Alignment.center,
+                      onPressed: () {
+                        Engine().enterGame(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => GamePage()));
+                        });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WaitingPage()));
+                      },
+                      icon: const Icon(Icons.arrow_forward,
+                          color: Colors.white))),
+              const SizedBox(height: 10),
+              const SizedBox(
                 width: double.infinity,
                 child: Text(
                   '5min',

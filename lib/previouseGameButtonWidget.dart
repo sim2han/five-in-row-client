@@ -22,7 +22,8 @@ class ListItem extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 120,
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +35,8 @@ class ListItem extends StatelessWidget {
                       clipBehavior: Clip.antiAlias,
                       decoration: ShapeDecoration(
                         color: Color(0xFF00A405),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -113,7 +115,8 @@ class ListItem extends StatelessWidget {
                               width: double.infinity,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
@@ -121,8 +124,10 @@ class ListItem extends StatelessWidget {
                                       height: 24,
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Container(
                                             width: 24,
@@ -132,10 +137,12 @@ class ListItem extends StatelessWidget {
                                             decoration: BoxDecoration(),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
-                                              ,
+                                                //,
                                               ],
                                             ),
                                           ),
@@ -187,13 +194,16 @@ class ListItem extends StatelessWidget {
                                   Container(
                                     width: 24,
                                     height: 24,
-                                    padding: const EdgeInsets.only(top: 5, left: 8, right: 5, bottom: 5),
+                                    padding: const EdgeInsets.only(
+                                        top: 5, left: 8, right: 5, bottom: 5),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                      //,
+                                        //,
                                       ],
                                     ),
                                   ),

@@ -7,7 +7,7 @@ class fastMatchingWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 443,
+          width: double.infinity,
           height: 208,
           decoration: BoxDecoration(color: Color(0xFFFEF7FF)),
           child: Column(
@@ -19,7 +19,7 @@ class fastMatchingWidget extends StatelessWidget {
                 width: double.infinity,
                 height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +48,6 @@ class fastMatchingWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MatchButtonWidget(),
                     MatchButtonWidget(),
                     MatchButtonWidget(),
                   ],

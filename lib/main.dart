@@ -33,7 +33,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: FigmaToCodeApp(),
+      //home: GamePage(),
+      //home: WaitingPage(),
+      //home: LoginPage(),
+      home: MainPage(),
       //home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
