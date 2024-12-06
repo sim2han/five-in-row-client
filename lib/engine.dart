@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:fir_client/clientTest.dart';
+import 'package:fir_client/firBoard.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:dio/dio.dart';
@@ -8,7 +9,7 @@ import 'info.dart';
 
 class Infos {
   bool loginState = false;
-  String username = "";
+  String username = "Guest";
   UserKeyInfo key = UserKeyInfo(key: "");
   UserInfo userinfo = UserInfo(id: "", pwd: "", rating: 0, key: "");
   List<GameInfo> gameinfos = List<GameInfo>.empty();
@@ -38,14 +39,6 @@ class Engine {
 
   final String host = "http://127.0.0.1:3000/";
   InfoNotifier notifier = InfoNotifier();
-
-  Future enterGame(Function callback) async {
-    print("game entier");
-
-    WebSocketChannel channel = WebSocketChannel.connect(
-        Uri.parse('ws://127.0.0.1:3000/connect?key=${key.key}'));
-    await webSocketCli(channel);
-  }
 
   Future registerUser(String id, String pwd) async {
     final RegisterInfo info = RegisterInfo(id: id, pwd: pwd);
@@ -99,7 +92,69 @@ class Engine {
     notifier.update();
   }
 
-  Future webSocketCli(WebSocketChannel channel) async {
+  // in game commands
+  int side = -2; // 0 black, 1 white
+  int opp = -2;
+  WebSocketChannel? channel;
+  FirBoardController? controller;
+
+  Future enterGame(Function callback) async {
+    print("game entier");
+    channel = WebSocketChannel.connect(
+        Uri.parse('ws://127.0.0.1:3000/connect?key=${key.key}'));
+    controller = FirBoardController();
+    await gameAsync(channel!, callback);
+  }
+
+  void initGame(int side) {
+    this.side = side;
+    if (side == 0) {
+      opp = 1;
+    } else {
+      opp = 0;
+    }
+    if (side == 0) {
+      controller!.setOrder(true);
+    } else {
+      controller!.setOrder(false);
+    }
+  }
+
+  void endGame() {
+    channel = null;
+    controller = null;
+  }
+
+  void playStone(int x, int y) {
+    if (controller!.game.order == false) return;
+    print('play stone $x $y');
+    if (controller!.putStone(x, y, side)) {
+      sendPlayCommand(x, y);
+    }
+    controller!.game.order = false;
+  }
+
+  Future sendPlayCommand(int x, int y) async {
+    var command = GameCommandInfo(
+        side: side,
+        command: "Play",
+        notation: NotationInfo(color: side, x: x, y: y),
+        message: "");
+    channel?.sink.add(json.encode(command.toJson()));
+  }
+
+  Future sendOfferDrawCommand() async {}
+
+  Future sendResignCommand() async {
+    var command = GameCommandInfo(
+        side: side,
+        command: "Resign",
+        notation: NotationInfo(color: 0, x: 0, y: 0),
+        message: "");
+    channel!.sink.add(json.encode(command.toJson()));
+  }
+
+  Future gameAsync(WebSocketChannel channel, Function callback) async {
     bool isStart = false;
     int side = 0;
 
@@ -112,12 +167,18 @@ class Engine {
       if (response.command == "Start") {
         isStart = true;
         side = response.notation.color;
+        controller!.game.oppname = response.message;
+        controller!.game.myname = notifier.info.userinfo.id;
+        initGame(side);
         print('Game Start with color $side');
+        callback();
       }
 
       if (response.command == "OpponentPlay") {
         var notation = response.notation;
         print('Opponent Play ${notation.x} ${notation.y}');
+        controller!.putStone(notation.x, notation.y, opp);
+        controller!.game.order = true;
       }
 
       if (response.command == "OpponentResign") {
@@ -131,6 +192,7 @@ class Engine {
       if (response.command == "GameEnd") {
         print('Game End');
         isStart = false;
+        endGame();
       }
     }, onDone: () {
       print('WebSocket connection closed');

@@ -1,3 +1,4 @@
+import 'package:fir_client/gamePage.dart';
 import 'package:flutter/material.dart';
 
 import 'mainPage.dart';

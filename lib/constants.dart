@@ -23,9 +23,11 @@ class MyColor {
   static Color defaultBackground = const Color(0xFFFFFFFF);
   static Color buttonColor = const Color(0xFF65558F);
   static Color primaryContainer = const Color(0xFFEADDFF);
+  static Color surfaceContainer = const Color(0xFFF3EDF7);
   static Color appBar = Colors.blue;
   static Color surface = const Color(0xFFFEF7FF);
   static Color white = Colors.white;
   static Color text = const Color(0xFF1E1E1E);
   static Color textLight = Colors.white;
+  static Color black = Colors.black;
 }

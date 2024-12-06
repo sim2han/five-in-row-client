@@ -16,14 +16,11 @@ Future<String> readLine([String? query]) async {
   return _stdinLines.next;
 }
 
-//Future main() async {
-//  cli();
-//}
-
 int count = 0;
-final String LocalHost = "http://127.0.0.1:3000/";
+const String localHost = "http://127.0.0.1:3000/";
 UserKeyInfo key = UserKeyInfo(key: "");
 
+// cli client test
 Future cli() async {
   WebSocketChannel channel;
 
@@ -47,7 +44,7 @@ Future cli() async {
     }
 
     if (words[0] == "state") {
-      final response = await simpleHttpRequest(LocalHost + str);
+      final response = await simpleHttpRequest(localHost + str);
       print(response);
     }
 
@@ -56,7 +53,7 @@ Future cli() async {
       final String pwd = words[2];
       final RegisterInfo info = RegisterInfo(id: id, pwd: pwd);
       var response = await dio.post(
-        '${LocalHost}register',
+        '${localHost}register',
         data: info.toJson(),
       );
       key = UserKeyInfo.fromJson(json.decode(response.toString()));
@@ -65,8 +62,8 @@ Future cli() async {
 
     if (words[0] == 'getuserinfo') {
       var response = await dio.get(
-        '${LocalHost}getuserinfo',
-        data: key!.toJson(),
+        '${localHost}getuserinfo',
+        data: key.toJson(),
       );
       print('response $response');
       UserInfo info = UserInfo.fromJson(json.decode(response.toString()));
@@ -74,7 +71,7 @@ Future cli() async {
 
     if (words[0] == 'getgameinfo') {
       var response = await dio.get(
-        '${LocalHost}getgameinfo',
+        '${localHost}getgameinfo',
         data: key!.toJson(),
       );
       print('response $response');
@@ -88,7 +85,7 @@ Future cli() async {
       final String pwd = words[2];
       final LoginInfo info = LoginInfo(id: id, pwd: pwd);
       var response = await dio.post(
-        '${LocalHost}login',
+        '${localHost}login',
         data: info.toJson(),
       );
       key = UserKeyInfo.fromJson(json.decode(response.toString()));
@@ -97,7 +94,7 @@ Future cli() async {
 
     if (str == "getuser") {
       try {
-        final response = await simpleHttpRequest('${LocalHost}getuser');
+        final response = await simpleHttpRequest('${localHost}getuser');
         print(response);
         Iterable l = json.decode(response);
         List<UserInfo> infos =

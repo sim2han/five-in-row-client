@@ -1,8 +1,16 @@
 import 'dart:math';
+import 'package:fir_client/engine.dart';
 import 'package:flutter/material.dart';
 
 class FirBoardState {
-  List<int> board = List.filled(64, 0);
+  bool order = false;
+  String oppname = "anon";
+  String myname = "anon";
+  List<int> board = List.filled(64, -1);
+
+  void play(int x, int y, int color) {
+    board[x * 8 + y] = color;
+  }
 }
 
 class FirBoardPiece extends StatefulWidget {
@@ -25,9 +33,9 @@ class _FirBoardPiece extends State<FirBoardPiece> {
   @override
   Widget build(BuildContext context) {
     Icon? icon;
-    if (widget.state == 0) {
+    if (widget.state == -1) {
       icon = null;
-    } else if (widget.state == 1) {
+    } else if (widget.state == 0) {
       icon = const Icon(Icons.circle, color: Color(0xFFFFFFFF));
     } else {
       icon = const Icon(Icons.circle, color: Color(0xFF000000));
@@ -36,7 +44,8 @@ class _FirBoardPiece extends State<FirBoardPiece> {
     return GestureDetector(
         onTap: () {
           print("touch ${widget.x} ${widget.y}");
-          widget.controller.putStone(widget.x, widget.y, 1);
+          Engine().playStone(widget.x, widget.y);
+          //widget.controller.putStone(widget.x, widget.y, 1);
         },
         child: SizedBox(
             height: 10,
@@ -59,10 +68,16 @@ class FirBoardController extends ValueNotifier<FirBoardState> {
       : game = game,
         super(game);
 
-  void putStone(int x, int y, int color) {
-    print("put stone");
+  bool putStone(int x, int y, int color) {
+    if (game.board[x * 8 + y] != -1) return false;
     game.board[x * 8 + y] = color;
     value = game;
+    notifyListeners();
+    return true;
+  }
+
+  void setOrder(bool order) {
+    this.game.order = order;
     notifyListeners();
   }
 }
@@ -89,10 +104,8 @@ class _FirBoard extends State<FirBoard> {
         valueListenable: widget.controller,
         builder: (context, game, _) {
           return SizedBox(
-            //width: widget.size,
-            //height: widget.size,
-            width: 400,
-            height: 400,
+            width: widget.size,
+            height: widget.size,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 8),
