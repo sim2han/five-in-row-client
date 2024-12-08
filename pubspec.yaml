@@ -46,6 +46,7 @@ dependencies:
   async: ^2.11.0
   #flutter_stateless_chessboard: ^1.1.2
   flutter_chess_board: ^1.0.1
+  just_audio: ^0.9.42
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +71,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/icons/
+    - assets/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

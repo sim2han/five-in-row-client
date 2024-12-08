@@ -9,7 +9,7 @@ class fastMatchingWidget extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 208,
-          decoration: BoxDecoration(color: Color(0xFFFEF7FF)),
+          decoration: const BoxDecoration(color: Color(0xFFFEF7FF)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -42,13 +42,12 @@ class fastMatchingWidget extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(),
-                child: Row(
+                decoration: const BoxDecoration(),
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MatchButtonWidget(),
                     MatchButtonWidget(),
                   ],
                 ),

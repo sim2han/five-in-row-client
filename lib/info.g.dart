@@ -112,3 +112,14 @@ Map<String, dynamic> _$GameResponseInfoToJson(GameResponseInfo instance) =>
       'notation': instance.notation,
       'message': instance.message,
     };
+
+TimeControl _$TimeControlFromJson(Map<String, dynamic> json) => TimeControl(
+      seconds: (json['seconds'] as num).toInt(),
+      fisher: (json['fisher'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$TimeControlToJson(TimeControl instance) =>
+    <String, dynamic>{
+      'seconds': instance.seconds,
+      'fisher': instance.fisher,
+    };

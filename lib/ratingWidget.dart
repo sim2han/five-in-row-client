@@ -1,6 +1,9 @@
+import 'package:fir_client/engine.dart';
 import 'package:flutter/material.dart';
 
 class RatingWidget extends StatelessWidget {
+  const RatingWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -8,7 +11,7 @@ class RatingWidget extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 151,
-          decoration: BoxDecoration(color: Color(0xFFFEF7FF)),
+          decoration: const BoxDecoration(color: Color(0xFFFEF7FF)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -18,7 +21,7 @@ class RatingWidget extends StatelessWidget {
                 width: double.infinity,
                 height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +44,7 @@ class RatingWidget extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +65,7 @@ class RatingWidget extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 23),
                               clipBehavior: Clip.antiAlias,
                               decoration: ShapeDecoration(
-                                color: Color(0xFFEADDFF),
+                                color: const Color(0xFFEADDFF),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -73,19 +76,30 @@ class RatingWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    width: 96,
-                                    child: Text(
-                                      '600',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Color(0xFF1D1B20),
-                                        fontSize: 24,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w500,
-                                        height: 0.03,
-                                        letterSpacing: 0.10,
-                                      ),
-                                    ),
+                                    width: 300,
+                                    child: ValueListenableBuilder(
+                                        valueListenable: Engine().notifier,
+                                        builder: (context, info, _) {
+                                          String rate = 'Please login';
+                                          double size = 20;
+                                          if (info.loginState == true) {
+                                            rate = '${info.userinfo.rating}';
+                                            size = 24;
+                                          }
+
+                                          return Text(
+                                            rate,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: const Color(0xFF1D1B20),
+                                              fontSize: size,
+                                              fontFamily: 'Roboto',
+                                              fontWeight: FontWeight.w500,
+                                              height: 0.03,
+                                              letterSpacing: 0.10,
+                                            ),
+                                          );
+                                        }),
                                   ),
                                 ],
                               ),

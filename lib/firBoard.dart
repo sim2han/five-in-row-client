@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'package:fir_client/constants.dart';
 import 'package:fir_client/engine.dart';
 import 'package:flutter/material.dart';
 
@@ -8,55 +8,10 @@ class FirBoardState {
   String myname = "anon";
   List<int> board = List.filled(64, -1);
 
+  bool gameEndPopup = false;
+
   void play(int x, int y, int color) {
     board[x * 8 + y] = color;
-  }
-}
-
-class FirBoardPiece extends StatefulWidget {
-  var x, y;
-  var state = 0;
-  FirBoardController controller;
-
-  FirBoardPiece(
-    this.x,
-    this.y,
-    this.state,
-    this.controller,
-  );
-
-  @override
-  _FirBoardPiece createState() => _FirBoardPiece();
-}
-
-class _FirBoardPiece extends State<FirBoardPiece> {
-  @override
-  Widget build(BuildContext context) {
-    Icon? icon;
-    if (widget.state == -1) {
-      icon = null;
-    } else if (widget.state == 0) {
-      icon = const Icon(Icons.circle, color: Color(0xFFFFFFFF));
-    } else {
-      icon = const Icon(Icons.circle, color: Color(0xFF000000));
-    }
-
-    return GestureDetector(
-        onTap: () {
-          print("touch ${widget.x} ${widget.y}");
-          Engine().playStone(widget.x, widget.y);
-          //widget.controller.putStone(widget.x, widget.y, 1);
-        },
-        child: SizedBox(
-            height: 10,
-            width: 10,
-            child: Container(
-                color: Color(0xFF0000FF),
-                child: Container(
-                  margin: EdgeInsets.all(1),
-                  color: Color(0xFF00FF00),
-                  child: icon,
-                ))));
   }
 }
 
@@ -77,8 +32,61 @@ class FirBoardController extends ValueNotifier<FirBoardState> {
   }
 
   void setOrder(bool order) {
-    this.game.order = order;
+    game.order = order;
     notifyListeners();
+  }
+
+  void PopupGameEnd() {
+    this.game.gameEndPopup = true;
+    notifyListeners();
+  }
+}
+
+class FirBoardPiece extends StatefulWidget {
+  int x, y;
+  int state = 0;
+  FirBoardController controller;
+
+  FirBoardPiece(this.x, this.y, this.state, this.controller, {super.key});
+
+  @override
+  _FirBoardPiece createState() => _FirBoardPiece();
+}
+
+class _FirBoardPiece extends State<FirBoardPiece> {
+  @override
+  Widget build(BuildContext context) {
+    Icon? icon;
+    if (widget.state == -1) {
+      icon = null;
+    } else if (widget.state == 0) {
+      icon = const Icon(Icons.circle, color: Color(0xFFFFFFFF));
+    } else {
+      icon = const Icon(Icons.circle, color: Color(0xFF000000));
+    }
+
+    late Color color;
+    if ((widget.x + widget.y) % 2 == 0) {
+      color = MyColor.surfaceContainer;
+    } else {
+      color = MyColor.primaryContainer;
+    }
+
+    return GestureDetector(
+        onTap: () {
+          //print("touch ${widget.x} ${widget.y}");
+          Engine().playStone(widget.x, widget.y);
+        },
+        child: SizedBox(
+            height: 10,
+            width: 10,
+            child: Container(
+                color: const Color(0xFF0000FF),
+                child: Container(
+                  margin: const EdgeInsets.all(1),
+                  color: color,
+                  child: icon,
+                ))));
   }
 }
 
@@ -88,10 +96,10 @@ class FirBoard extends StatefulWidget {
   final double? size;
 
   const FirBoard({
-    Key? key,
+    super.key,
     this.size,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   _FirBoard createState() => _FirBoard();

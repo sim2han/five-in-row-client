@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+/*
 class Assetpath {
   static const String arrowForward =
       "arrow_forward_24dp_000000_FILL1_wght200_GRAD0_opsz24.svg";
@@ -17,6 +17,10 @@ class Assetpath {
       "play_arrow_24dp_000000_FILL1_wght200_GRAD0_opsz24.svg";
   static const String account =
       "account_circle_24dp_000000_FILL0_wght200_GRAD0_opsz24.svg";
+}*/
+
+class AssetPath {
+  static const String stonePlaceSound = "assets/stone_place_sound.wav";
 }
 
 class MyColor {

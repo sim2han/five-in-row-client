@@ -1,9 +1,8 @@
-import 'package:fir_client/constants.dart';
-import 'package:fir_client/engine.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class UserPage extends StatefulWidget {
+  const UserPage({super.key});
+
   @override
   _UserPage createState() => _UserPage();
 }
@@ -84,8 +83,8 @@ class _UserPage extends State<UserPage> {
         Container(
             width: 500,
             height: 500,
-            color: Color(0xFF00FFFF),
-            child: Column(
+            color: const Color(0xFF00FFFF),
+            child: const Column(
               children: [
                 Text("aaaa"),
                 SizedBox(height: 30),

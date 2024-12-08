@@ -115,7 +115,6 @@ class GameResponseInfo {
   Map<String, dynamic> toJson() => _$GameResponseInfoToJson(this);
 }
 
-/*
 @JsonSerializable()
 class TimeControl {
   final int seconds, fisher;
@@ -124,4 +123,3 @@ class TimeControl {
       _$TimeControlFromJson(json);
   Map<String, dynamic> toJson() => _$TimeControlToJson(this);
 }
-*/

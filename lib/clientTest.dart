@@ -72,7 +72,7 @@ Future cli() async {
     if (words[0] == 'getgameinfo') {
       var response = await dio.get(
         '${localHost}getgameinfo',
-        data: key!.toJson(),
+        data: key.toJson(),
       );
       print('response $response');
       Iterable iter = json.decode(response.toString());

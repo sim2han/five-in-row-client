@@ -1,9 +1,9 @@
 import 'package:fir_client/constants.dart';
-import 'package:fir_client/engine.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class WaitingPage extends StatefulWidget {
+  const WaitingPage({super.key});
+
   @override
   _WaitingPage createState() => _WaitingPage();
 }
@@ -15,7 +15,7 @@ class _WaitingPage extends State<WaitingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("wating your opponent..."),
+          title: const Text("wating your opponent..."),
           backgroundColor: MyColor.appBar,
         ),
         body: Container(
@@ -36,11 +36,11 @@ class _WaitingPage extends State<WaitingPage> {
                       padding: const EdgeInsets.only(bottom: 8),
                       clipBehavior: Clip.antiAlias,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFF3EDF7),
+                        color: const Color(0xFFF3EDF7),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        shadows: [
+                        shadows: const [
                           BoxShadow(
                             color: Color(0x26000000),
                             blurRadius: 6,
@@ -68,7 +68,7 @@ class _WaitingPage extends State<WaitingPage> {
                               right: 16,
                               bottom: 4,
                             ),
-                            child: Column(
+                            child: const Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class _WaitingPage extends State<WaitingPage> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 30),
+                                SizedBox(height: 30),
                                 SizedBox(
                                   width: double.infinity,
                                   child: Text(

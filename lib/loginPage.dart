@@ -1,9 +1,11 @@
 import 'package:fir_client/constants.dart';
 import 'package:fir_client/engine.dart';
+import 'package:fir_client/messageBox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPage createState() => _LoginPage();
 }
@@ -55,10 +57,13 @@ class _LoginPage extends State<LoginPage> {
                           onPressed: () {
                             String id = idInput.text;
                             String pwd = pwdInput.text;
-                            print("$id, $pwd");
-                            Engine().loginUser(id, pwd, () {}, () {
-                              FlutterDialog("Lonin fail",
-                                  "Please check your id and password");
+                            //print("$id, $pwd");
+                            Engine().loginUser(id, pwd, () {
+                              flutterDialog(context, "Login success",
+                                  "Nice to meet you again.");
+                            }, () {
+                              flutterDialog(context, "Login fail",
+                                  "Please check your id or passwords");
                             });
                           },
                           style: ElevatedButton.styleFrom(
@@ -71,8 +76,14 @@ class _LoginPage extends State<LoginPage> {
                           onPressed: () {
                             String id = idInput.text;
                             String pwd = pwdInput.text;
-                            print("$id, $pwd");
-                            Engine().registerUser(id, pwd);
+                            //print("$id, $pwd");
+                            Engine().registerUser(id, pwd, () {
+                              flutterDialog(context, "Register Success",
+                                  "Welcome new user!");
+                            }, () {
+                              flutterDialog(context, "Register Fail",
+                                  "Please check your id.");
+                            });
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: MyColor.buttonColor,
@@ -86,41 +97,5 @@ class _LoginPage extends State<LoginPage> {
             ],
           ),
         ));
-  }
-
-  void FlutterDialog(String title, String msg) {
-    showDialog(
-        context: context,
-        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            //Dialog Main Title
-            title: Column(
-              children: [
-                Text(title),
-              ],
-            ),
-            //
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(msg),
-              ],
-            ),
-            actions: <Widget>[
-              new ElevatedButton(
-                child: new Text("확인"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
   }
 }

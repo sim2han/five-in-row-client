@@ -3,14 +3,15 @@ import 'package:fir_client/engine.dart';
 import 'package:fir_client/gamePage.dart';
 import 'package:fir_client/waitingPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class MatchButtonWidget extends StatelessWidget {
+  const MatchButtonWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
           width: 120,
           height: 120,
           child: Column(
@@ -37,7 +38,7 @@ class MatchButtonWidget extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => WaitingPage()));
+                                builder: (context) => const WaitingPage()));
                       },
                       icon: const Icon(Icons.arrow_forward,
                           color: Colors.white))),
@@ -45,7 +46,7 @@ class MatchButtonWidget extends StatelessWidget {
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  '5min',
+                  'play 8x8',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFF1D1B20),
